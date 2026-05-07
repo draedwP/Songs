@@ -1,50 +1,92 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>For You ❤️</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Music Gift</title>
 
-  <style>
+<style>
     body {
-      background: black;
-      color: white;
-      text-align: center;
-      font-family: Arial;
-      margin-top: 100px;
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background: #111;
+        color: white;
+        font-family: Arial, sans-serif;
+        text-align: center;
+    }
+
+    h1 {
+        margin-bottom: 30px;
+    }
+
+    .buttons {
+        display: flex;
+        gap: 20px;
     }
 
     button {
-      padding: 20px 40px;
-      font-size: 24px;
-      border-radius: 20px;
-      border: none;
+        padding: 15px 30px;
+        font-size: 18px;
+        border: none;
+        border-radius: 15px;
+        cursor: pointer;
     }
-  </style>
+
+    .play {
+        background: #1DB954;
+        color: white;
+    }
+
+    .pause {
+        background: #444;
+        color: white;
+    }
+</style>
 </head>
 
 <body>
 
 <h1>🎵 A Song For You ❤️</h1>
 
-<audio id="music" autoplay>
-  <source src="song.mp3" type="audio/mpeg">
+<audio id="music" loop>
+    <source src="song.mp3" type="audio/mpeg">
 </audio>
 
-<button onclick="playMusic()">
-▶ Play Music
-</button>
+<div class="buttons">
+    <button class="play" onclick="playMusic()">▶ Play</button>
+    <button class="pause" onclick="pauseMusic()">⏸ Pause</button>
+</div>
 
 <script>
-  const music = document.getElementById('music');
+const music = document.getElementById('music');
 
-  function playMusic() {
-    music.play();
-  }
-
-  window.onload = () => {
+// Try autoplay
+window.addEventListener('load', () => {
     music.play().catch(() => {
-      console.log("Autoplay blocked");
+        console.log("Autoplay blocked");
     });
-  };
+});
+
+// Play function
+function playMusic() {
+    music.play();
+}
+
+// Pause function
+function pauseMusic() {
+    music.pause();
+}
+
+// Extra trick for iPhone:
+// first touch anywhere starts music
+document.body.addEventListener('touchstart', () => {
+    music.play();
+}, { once: true });
+
 </script>
 
 </body>
