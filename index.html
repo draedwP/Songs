@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>NFC Music</title>
 
   <style>
@@ -46,7 +46,7 @@
       max-width: 390px;
       padding: 28px;
       border-radius: 32px;
-      background: rgba(255, 255, 255, 0.12);
+      background: rgba(255,255,255,0.12);
       backdrop-filter: blur(24px);
       box-shadow: 0 25px 70px rgba(0,0,0,.45);
       text-align: center;
@@ -61,6 +61,7 @@
       padding: 10px;
       background: rgba(255,255,255,.15);
       box-shadow: 0 20px 40px rgba(0,0,0,.4);
+      position: relative;
     }
 
     .cover {
@@ -70,6 +71,19 @@
       object-fit: cover;
       animation: spin 10s linear infinite;
       animation-play-state: paused;
+    }
+
+    .cover-wrap::after {
+      content: "";
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      background: #111;
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 10px rgba(0,0,0,.5);
     }
 
     .playing .cover {
@@ -84,6 +98,7 @@
     h1 {
       font-size: 24px;
       margin-bottom: 8px;
+      font-weight: 700;
     }
 
     p {
@@ -103,12 +118,42 @@
       cursor: pointer;
       box-shadow: 0 15px 35px rgba(0,0,0,.35);
       margin-bottom: 24px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: .2s ease;
+      animation: pulse 1.6s infinite;
+    }
+
+    .button:active {
+      transform: scale(.95);
+    }
+
+    .playing .button {
+      animation: none;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+        box-shadow: 0 15px 35px rgba(0,0,0,.35);
+      }
+
+      50% {
+        transform: scale(1.07);
+        box-shadow: 0 18px 45px rgba(255,255,255,.25);
+      }
+
+      100% {
+        transform: scale(1);
+        box-shadow: 0 15px 35px rgba(0,0,0,.35);
+      }
     }
 
     .progress {
       width: 100%;
-      accent-color: white;
       cursor: pointer;
+      accent-color: white;
     }
 
     .time {
@@ -120,20 +165,23 @@
     }
 
     .hint {
-      margin-top: 18px;
+      margin-top: 22px;
       font-size: 13px;
       opacity: .6;
     }
+
   </style>
 </head>
 
 <body>
+
   <div class="background" id="background"></div>
   <div class="overlay"></div>
 
   <div class="player" id="playerBox">
+
     <div class="cover-wrap">
-      <img class="cover" id="cover" src="" alt="Cover" />
+      <img class="cover" id="cover" src="" alt="Cover"/>
     </div>
 
     <h1 id="title">Loading...</h1>
@@ -141,19 +189,30 @@
 
     <button class="button" id="playBtn">▶</button>
 
-    <input class="progress" id="progress" type="range" value="0" min="0" max="100" />
+    <input
+      class="progress"
+      id="progress"
+      type="range"
+      value="0"
+      min="0"
+      max="100"
+    />
 
     <div class="time">
       <span id="currentTime">0:00</span>
       <span id="duration">0:00</span>
     </div>
 
-    <div class="hint">Tap play to start the music</div>
+    <div class="hint">
+      Tap play to start the music
+    </div>
+
   </div>
 
   <audio id="audio"></audio>
 
   <script>
+
     const songs = {
       "1": {
         title: "Song One",
@@ -161,12 +220,14 @@
         file: "songs/song1.mp3",
         cover: "covers/cover1.jpg"
       },
+
       "2": {
         title: "Song Two",
         artist: "Special Moment",
         file: "songs/song2.mp3",
         cover: "covers/cover2.jpg"
       },
+
       "romantic": {
         title: "Romantic Song",
         artist: "With Love",
@@ -187,44 +248,85 @@
     document.getElementById("title").textContent = song.title;
     document.getElementById("artist").textContent = song.artist;
     document.getElementById("cover").src = song.cover;
-    document.getElementById("background").style.backgroundImage = `url('${song.cover}')`;
+
+    document.getElementById(
+      "background"
+    ).style.backgroundImage = `url('${song.cover}')`;
 
     audio.src = song.file;
 
-    playBtn.addEventListener("click", () => {
-      if (audio.paused) {
-        audio.play();
-        playBtn.textContent = "⏸";
-        playerBox.classList.add("playing");
-      } else {
-        audio.pause();
-        playBtn.textContent = "▶";
-        playerBox.classList.remove("playing");
+    playBtn.addEventListener("click", async () => {
+
+      try {
+
+        if (audio.paused) {
+
+          await audio.play();
+
+          playBtn.textContent = "❚❚";
+
+          playerBox.classList.add("playing");
+
+          if (navigator.vibrate) {
+            navigator.vibrate(40);
+          }
+
+        } else {
+
+          audio.pause();
+
+          playBtn.textContent = "▶";
+
+          playerBox.classList.remove("playing");
+        }
+
+      } catch (error) {
+
+        alert("Tap again to start music");
       }
     });
 
     audio.addEventListener("timeupdate", () => {
-      progress.value = (audio.currentTime / audio.duration) * 100 || 0;
-      document.getElementById("currentTime").textContent = formatTime(audio.currentTime);
-      document.getElementById("duration").textContent = formatTime(audio.duration);
+
+      progress.value =
+        (audio.currentTime / audio.duration) * 100 || 0;
+
+      document.getElementById("currentTime").textContent =
+        formatTime(audio.currentTime);
+
+      document.getElementById("duration").textContent =
+        formatTime(audio.duration);
     });
 
     progress.addEventListener("input", () => {
-      audio.currentTime = (progress.value / 100) * audio.duration;
+
+      audio.currentTime =
+        (progress.value / 100) * audio.duration;
     });
 
     audio.addEventListener("ended", () => {
+
       playBtn.textContent = "▶";
+
       playerBox.classList.remove("playing");
+
       progress.value = 0;
     });
 
     function formatTime(time) {
+
       if (isNaN(time)) return "0:00";
+
       const minutes = Math.floor(time / 60);
-      const seconds = Math.floor(time % 60).toString().padStart(2, "0");
+
+      const seconds = Math.floor(time % 60)
+        .toString()
+        .padStart(2, "0");
+
       return `${minutes}:${seconds}`;
     }
+
   </script>
+
 </body>
 </html>
