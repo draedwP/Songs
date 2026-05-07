@@ -61,32 +61,25 @@
     <button class="pause" onclick="pauseMusic()">⏸ Pause</button>
 </div>
 
+<audio id="player" controls></audio>
+<button onclick="playSong()">Play</button>
+
 <script>
-const music = document.getElementById('music');
+const songs = {
+  "1": "songs/song1.mp3",
+  "2": "songs/song2.mp3",
+  "romantic": "songs/romantic.mp3"
+};
 
-// Try autoplay
-window.addEventListener('load', () => {
-    music.play().catch(() => {
-        console.log("Autoplay blocked");
-    });
-});
+const params = new URLSearchParams(window.location.search);
+const songId = params.get("song") || "1";
 
-// Play function
-function playMusic() {
-    music.play();
+const player = document.getElementById("player");
+player.src = songs[songId] || songs["1"];
+
+function playSong() {
+  player.play();
 }
-
-// Pause function
-function pauseMusic() {
-    music.pause();
-}
-
-// Extra trick for iPhone:
-// first touch anywhere starts music
-document.body.addEventListener('touchstart', () => {
-    music.play();
-}, { once: true });
-
 </script>
 
 </body>
