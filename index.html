@@ -216,48 +216,50 @@
   <script>
 
     const songs = {
-      "1": {
-        title: "Кручу педали",
-        artist: "Детская песня",
-        file: "songs/kruchu-pedali.mp3",
-        cover: "covers/kruchu-pedali.jpg"
-      },
 
-      "2": {
-        title: "Неприятность эту мы переживём",
-        artist: "Детская песня",
-        file: "songs/nepriyatnost-perezhivem.mp3",
-        cover: "covers/nepriyatnost.jpg"
-      },
+        "1": {
+          title: "Приходите в гости к нам",
+          artist: "В гостях у сказки",
+          file: "songs/prihodite-v-gosti.mp3",
+          cover: "covers/prihodite-v-gosti-k-nam.png"
+        },
 
-      "3": {
-        title: "Приходите в гости к нам",
-        artist: "Детская песня",
-        file: "songs/prihodite-v-gosti.mp3",
-        cover: "covers/gosti.jpg"
-      },
+        "2": {
+          title: "Два весёлых гуся",
+          artist: "Ансамбль Детские Песни",
+          file: "songs/dva-veselyh-gusya.mp3",
+          cover: "covers/dva-vesyolyh-gusya.png"
+        },
 
-      "4": {
-        title: "Два весёлых гуся",
-        artist: "Ансамбль Детские Песни",
-        file: "songs/dva-veselyh-gusya.mp3",
-        cover: "covers/gusya.jpg"
-      },
+        "3": {
+          title: "Танец утят",
+          artist: "Ансамбль Детские Песни",
+          file: "songs/tanec-utyat.mp3",
+          cover: "covers/tanec-utyat.png"
+        },
 
-      "5": {
-        title: "Танец утят",
-        artist: "Ансамбль Детские Песни",
-        file: "songs/tanec-utyat.mp3",
-        cover: "covers/utyata.jpg"
-      },
+        "4": {
+          title: "Кручу педали",
+          artist: "Песни кота Леопольда",
+          file: "songs/kruchu-pedali.mp3",
+          cover: "covers/kruchu-pedali.png"
+        },
 
-      "6": {
-        title: "Чунга-Чанга",
-        artist: "Детская песня",
-        file: "songs/chunga-changa.mp3",
-        cover: "covers/chunga-changa.jpg"
-      }
-    };
+        "5": {
+          title: "Неприятность эту мы переживём",
+          artist: "Песни кота Леопольда",
+          file: "songs/nepriyatnost-perezhivem.mp3",
+          cover: "covers/nepriyatnost-etu-my-perezhivyom.png"
+        },
+
+        "6": {
+          title: "Чунга-Чанга",
+          artist: "Детская песня",
+          file: "songs/chunga-changa.mp3",
+          cover: "covers/chunga-changa.png"
+        }
+        
+      };
 
     const params = new URLSearchParams(window.location.search);
     const songId = params.get("song") || "1";
