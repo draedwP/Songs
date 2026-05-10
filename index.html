@@ -56,28 +56,27 @@
     .cover-wrap {
       width: 240px;
       height: 240px;
-      margin: 0 auto 30px;
-      border-radius: 32px;
+      margin: 0 auto 26px;
+      border-radius: 28px;
+      padding: 8px;
+      background: rgba(255,255,255,.15);
+      box-shadow: 0 20px 40px rgba(0,0,0,.4);
       overflow: hidden;
       position: relative;
-      background: transparent;
-      box-shadow: 0 20px 40px rgba(0,0,0,.35);
     }
 
     .cover {
       width: 100%;
       height: 100%;
+      border-radius: 22px;
       object-fit: cover;
-      display: block;
-      transform: scale(1.035);
+      animation: none;
     }
 
     h1 {
-      font-size: 30px;
-      line-height: 1.15;
+      font-size: 24px;
       margin-bottom: 8px;
       font-weight: 700;
-      text-wrap: balance;
     }
 
     p {
@@ -149,21 +148,6 @@
       margin-top: 22px;
       font-size: 13px;
       opacity: .6;
-    }
-
-    @media (max-width: 430px) {
-      h1 {
-        font-size: 26px;
-      }
-
-      .cover-wrap {
-        width: 220px;
-        height: 220px;
-      }
-
-      .player {
-        padding: 24px;
-      }
     }
 
   </style>
