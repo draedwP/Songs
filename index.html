@@ -117,10 +117,12 @@
       font-size: 34px;
       cursor: pointer;
       box-shadow: 0 15px 35px rgba(0,0,0,.35);
-      margin-bottom: 24px;
-      display: inline-flex;
+      margin: 0 auto 24px;
+      display: flex;
       align-items: center;
       justify-content: center;
+      line-height: 1;
+      padding: 0;
       transition: .2s ease;
       animation: pulse 1.6s infinite;
     }
@@ -263,7 +265,29 @@
 
           await audio.play();
 
-          playBtn.textContent = "❚❚";
+          playBtn.innerHTML = `
+            <div style="
+              display:flex;
+              gap:8px;
+              align-items:center;
+              justify-content:center;
+              height:100%;
+            ">
+              <div style="
+                width:8px;
+                height:34px;
+                background:black;
+                border-radius:4px;
+              "></div>
+
+              <div style="
+                width:8px;
+                height:34px;
+                background:black;
+                border-radius:4px;
+              "></div>
+            </div>
+            `;
 
           playerBox.classList.add("playing");
 
@@ -275,7 +299,7 @@
 
           audio.pause();
 
-          playBtn.textContent = "▶";
+          playBtn.innerHTML = "▶";
 
           playerBox.classList.remove("playing");
         }
